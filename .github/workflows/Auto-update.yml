@@ -40,9 +40,9 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         pwd
         rm -rfv *
-        svn export https://github.com/coolsnowwolf/lede ./lede
-        svn export https://github.com/coolsnowwolf/packages ./packages
-        svn export https://github.com/coolsnowwolf/luci ./luci
+        svn export https://github.com/coolsnowwolf/lede/trunk/ ./lede
+        svn export https://github.com/coolsnowwolf/packages/trunk/ ./packages
+        svn export https://github.com/coolsnowwolf/luci/trunk/ ./luci
       
     - name: Commit
       run: |
