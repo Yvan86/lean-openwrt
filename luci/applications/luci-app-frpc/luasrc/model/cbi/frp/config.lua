@@ -30,6 +30,7 @@ e:value("https", translate("HTTPS"))
 e:value("tcp", translate("TCP"))
 e:value("udp", translate("UDP"))
 e:value("stcp", translate("STCP"))
+e:value("xtcp", translate("XTCP"))
 
 e = t:taboption("base", ListValue, "domain_type", translate("Domain Type"))
 e.default = "custom_domains"
@@ -55,6 +56,12 @@ e:value("server", translate("STCP Server"))
 e:value("visitor", translate("STCP Vistor"))
 e:depends("type", "stcp")
 
+e = t:taboption("base", ListValue, "xtcp_role", translate("XTCP Role"))
+e.default = "server"
+e:value("server", translate("XTCP Server"))
+e:value("visitor", translate("XTCP Vistor"))
+e:depends("type", "xtcp")
+
 e = t:taboption("base", Value, "remote_port", translate("Remote Port"))
 e.datatype = "port"
 e:depends("type", "tcp")
@@ -69,7 +76,9 @@ e = t:taboption("base", Value, "local_ip", translate("Local Host Address"))
 luci.sys.net.ipv4_hints(function(x,d)
 e:value(x,"%s (%s)"%{x,d})
 end)
-e.datatype = "ip4addr"
+luci.sys.net.ipv6_hints(function(x,d)
+e:value(x,"%s (%s)"%{x,d})
+end)
 e:depends("type", "udp")
 e:depends("type", "http")
 e:depends("type", "https")
@@ -90,6 +99,15 @@ e = t:taboption("base", Value, "stcp_servername", translate("STCP Server Name"))
 e.description = translate("STCP Server Name is Service Remark Name of STCP Server")
 e.default = "secret_tcp"
 e:depends("stcp_role", "visitor")
+
+e = t:taboption("base", Value, "xtcp_secretkey", translate("XTCP Screct Key"))
+e.default = "abcdefg"
+e:depends("type", "xtcp")
+
+e = t:taboption("base", Value, "xtcp_servername", translate("XTCP Server Name"))
+e.description = translate("XTCP Server Name is Service Remark Name of XTCP Server")
+e.default = "p2p_tcp"
+e:depends("xtcp_role", "visitor")
 
 e = t:taboption("other", Flag, "enable_locations", translate("Enable URL routing"))
 e.description = translate("Frp support forward http requests to different backward web services by url routing.")
@@ -183,6 +201,7 @@ e:value("v1", translate("V1"))
 e:value("v2", translate("V2"))
 e:depends("type", "tcp")
 e:depends("type", "stcp")
+e:depends("type", "xtcp")
 e:depends("type", "http")
 e:depends("type", "https")
 
