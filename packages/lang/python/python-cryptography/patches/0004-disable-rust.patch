@@ -9,12 +9,9 @@
  except ImportError:
      print(
          """
-@@ -43,9 +43,9 @@ with open(os.path.join(src_dir, "cryptog
- # `pyproject.toml`
- setuptools_rust = "setuptools-rust>=0.11.4"
+@@ -45,7 +45,7 @@ setuptools_rust = "setuptools-rust>=0.11
  install_requirements = ["cffi>=1.12"]
--setup_requirements = install_requirements + [setuptools_rust]
-+setup_requirements = install_requirements
+ setup_requirements = install_requirements + [setuptools_rust]
  
 -if os.environ.get("CRYPTOGRAPHY_DONT_BUILD_RUST"):
 +if True:
