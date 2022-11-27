@@ -14,6 +14,6 @@ define Package/$(PKG_NAME)/conffiles
 /etc/mosdns/rule
 endef
 
-include $(TOPDIR)/feeds/luci/luci.mk
+include ../../luci.mk
 
 # call BuildPackage - OpenWrt buildroot signature
